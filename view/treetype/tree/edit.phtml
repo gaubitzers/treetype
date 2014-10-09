@@ -1,0 +1,158 @@
+<?php
+$title = 'Edit this tree';
+$this->headTitle($title);
+?>
+
+<!-- Page heading starts -->
+
+<div class="page-head">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2><?php echo $title?></h2>
+				<h4>Please give your tree a name and fill in all measured values.</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+
+<?php
+
+$form = $this->form;
+$tree = $form->get('tree');
+$form->setAttribute('action', 
+        $this->url('tree', 
+                array(
+                        'action' => 'edit',
+                        'id' => $tree->get('id')
+                            ->getValue()
+                )));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+
+$sitedetail = $tree->get('sitedetail');
+$geo = $sitedetail->get('geo');
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $tree->get('name')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $tree->get('species')
+            ->setAttribute('class', 'form-control')) . "</div>";
+ echo "<div class=\"form-group\">" . $this->formRow(
+         $tree->get('image-upload')
+         ->setAttribute('class', 'form-control')) . "</div>";
+
+// Site Details Start
+echo "<div id=\"sitedetail\"> 
+        <div class=\"form-group\">";
+echo "<fieldset> 
+        <legend>Please add site details for this tree</legend>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('slope')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('exposure')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('topography')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('competitionidx')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('covplantgt50')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('covplant20to50')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('covplantlt20')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('rocks')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('soil')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $sitedetail->get('description')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "</fieldset>";
+echo "</div>";
+echo "</div>";
+// Site Details End
+
+// Geo Details Start
+echo "<div id=\"geo\">
+        <div class=\"form-group\">";
+echo "<fieldset>
+        <legend>Please add geographical information for this tree</legend>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('latitude')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('longitude')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('altitude')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('country')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('region')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "</fieldset>";
+echo "</div>";
+echo "</div>";
+// Geo Details End
+// Tree Details Start
+echo "<div id=\"treedetails\"> 
+        <div class=\"form-group\">" .
+         $this->formCollection($tree->get('treedetails')) . "</div>";
+?>
+<div class="form-group">
+		<button class="btn btn-default" onclick="return add_treedetail()">Add new Treedetail</button>
+	</div>
+</div>
+
+<script>
+        $(document).ready(function(){
+            $('#treedetails .form-group fieldset').children("fieldset").slice(1).after(
+                '<span class="input-group-btn"><button class="btn btn-default" onclick="return remove_button(this)" >remove this Record</button></span>');
+                 });
+
+
+    
+    function add_treedetail() {        
+        var currentCount = $('form > div#treedetails > div.form-group > fieldset > fieldset').length;
+        var template = $('form > div#treedetails > div.form-group > fieldset > span:last').data('template');       
+        template = template.replace(/__index__/g, currentCount);
+        template += '<span class="input-group-btn"><button class="btn btn-default" onclick="return remove_button(this)" >remove this Treedetail</button></span>';
+        $('form > div#treedetails > div.form-group > fieldset').append(template);
+        return false;
+    }
+    
+    function remove_button(e)
+    {        
+        $(e).parent().prev().remove();
+        $(e).parent().remove();
+        
+        return false;
+    }
+    
+</script>
+
+<?php
+echo "<div class=\"form-group\">" . $this->formRow(
+        $form->get('submit')
+        ->setAttribute('class', 'btn btn-default')
+        ->setAttribute('value', 'Save this tree')) . "</div>";
+
+echo $this->form()->closeTag();
+?>
+</div>

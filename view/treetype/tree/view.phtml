@@ -1,0 +1,171 @@
+<?php
+$title =  'View: ' . $tree[0]->getName();
+$this->headTitle($title);
+?>
+<?php $sitedetail = $tree[0]->getSitedetail();?>
+<?php $geo = $sitedetail->getGeo();?>
+
+<!-- Page heading starts -->
+
+<div class="page-head">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <h2><?php echo 'Name: ' . $tree[0]->getName(); ?>
+
+<?php if($this->zfcUserIdentity()) {
+        if($this->zfcUserIdentity()->getId() == $tree[0]->getUser()->getId()) {
+?>
+            <span style=margin-left:20px font-size: 2em >
+                <a href="<?php echo $this->url('tree', array('action' => 'edit', 'id' => $tree[0]->getId())); ?>">edit</a>
+            </span>
+<?php   } 
+    } 
+?>
+          </h2>
+        <h4><?php echo 'Species: ' . $tree[0]->getSpecies()->getSpecies(); ?></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page Heading ends -->
+
+<div class="container">
+
+	<div class="row"> 
+		<div class="col-md-6">		  
+		<h3 class="title"><i class="fa fa-tree"></i>Tree details</h3>		
+		  <div class="item">
+		  <?php if($tree[0]->getImage() != '' && $tree[0]->getImage() != null) {
+		              $imagename = $tree[0]->getImage();
+		          } else {
+                      $imagename = 'no_image.png';
+                  }
+		  ?>
+		      <img src="<?php echo $this->basePath('img/trees/' . $imagename)?>" alt=""	class="img-responsive" />
+		      <?php echo 'Latitude: ' . $geo->getLatitude(); ?><br>
+              <?php echo 'Longitude: ' . $geo->getLatitude(); ?><br>
+              <?php echo 'Altitude: ' . $geo->getAltitude(); ?><br>
+              <?php echo 'Country: ' .$geo->getCountry()->getName(); ?><br>
+		  </div>
+		</div>
+	<!-- Google maps -->		
+		<div class="col-md-6">
+		<div class="ctas">
+		    <h3 class="title"><i class="fa fa-bullseye"></i>Tree position</h3>
+		    <div class="col-md-12" id="map_canvas"></div>
+		</div>
+		</div>
+	</div>
+		
+		
+	<!-- Google maps end-->	 				
+
+
+
+<h2 class="title">Site details:</h2>
+<table class="table table-bordered table-condensed">
+    <tr>
+        <th>Slope</th>
+        <th>Exposure</th>
+        <th>Topography</th>
+        <th>Competition Index</th>
+        <th>% coverage plants >50cm</th>
+        <th>% coverage plants 20-50cm</th>
+        <th>% coverage plants <20cm</th>
+        <th>Rocks</th>
+        <th>Soil</th>
+    </tr>
+    <?php 
+    echo '<td>' . $sitedetail->getSlope() . '</td>';
+    echo '<td>' . $sitedetail->getExposure() . '</td>';
+    echo '<td>' . $sitedetail->getTopography() . '</td>';
+    echo '<td>' . $sitedetail->getCompetitionIdx() . '</td>';
+    echo '<td>' . $sitedetail->getCovplantgt() . '</td>';
+    echo '<td>' . $sitedetail->getCovplant20to50() . '</td>';
+    echo '<td>' . $sitedetail->getCovplantlt20() . '</td>';
+    echo '<td>' . $sitedetail->getRocks() . '</td>';
+    echo '<td>' . $sitedetail->getSoil() . '</td>';
+    ?>
+</table>
+
+<div class="container">
+    <div class="col-md-4">
+        <div class="widget">
+        <h4>Additional Information:</h4>
+            <?php echo $sitedetail->getDescription();?>
+        </div>
+    </div>
+    <div class="col-md-8"> 
+    </div>
+</div>
+
+<h2 class="title">Records:</h2>
+<?php
+$treedetails = $tree[0]->gettreedetails();
+
+foreach ($treedetails as $treedetail) {
+    ?>
+<table class="table table-bordered table-condensed">
+	<tr>
+		<th>Date of Record</th>
+		<th>Diameter at 1.3m</th>
+		<th>Height</th>
+		<th>Crown size</th>
+		<th>Stem form</th>
+		<th>Bark thickness</th>
+		<th>Number of fruits</th>
+		<th>Seed mass</th>
+		<th>First flowering date</th>
+		<th>Bud flush date</th>
+		<th>Specic leaf area</th>
+		<th>% leaf damage</th>
+	</tr>
+<?php
+    // $this->plugin("dateFormat")->setTimezone("America/New_York")->setLocale("en_US");
+    $this->plugin("dateFormat")
+        ->setTimezone("Europe/Vienna")
+        ->setLocale("de_DE");
+    
+    echo '<td>' .
+             $this->dateFormat($treedetail->getDate(), IntlDateFormatter::MEDIUM) .
+             '</td>';
+    echo '<td>' . $treedetail->getDiam13() . '</td>';
+    echo '<td>' . $treedetail->getHeight() . '</td>';
+    echo '<td>' . $treedetail->getCrownsize() . '</td>';
+    echo '<td>' . $treedetail->getStemform() . '</td>';
+    echo '<td>' . $treedetail->getBarkthickness() . '</td>';
+    echo '<td>' . $treedetail->getNumberofFruits() . '</td>';
+    echo '<td>' . $treedetail->getSeedmass() . '</td>';
+    echo '<td>' . $this->dateFormat($treedetail->getFirstflowering(), 
+            IntlDateFormatter::MEDIUM) . '</td>';
+    echo '<td>' . $this->dateFormat($treedetail->getBudflush(), 
+            IntlDateFormatter::MEDIUM) . '</td>';
+    echo '<td>' . $treedetail->getSpecificleafarea() . '</td>';
+    echo '<td>' . $treedetail->getLeafdamage() . '</td>';
+
+}?>
+</table>
+</div>
+
+<script type="text/javascript">
+<?php 
+		$latitude =  $geo->getLatitude();
+		$longitude = $geo->getLongitude();
+?>
+<?php
+if($latitude != '' and $longitude != '') {?>
+$('#map_canvas').gmap().bind('init', function(ev, map) {
+	$('#map_canvas').gmap('addMarker', {'position': '<?php echo $latitude .  ',' . $longitude; ?>', 'bounds': true});
+	$('#map_canvas').gmap('option', 'zoom', 10);		
+});
+<?php } else { ?>
+$('#map_canvas').append("Sorry no Position information")
+<?php }?>
+
+
+</script>
+<style>
+    #map_canvas { height: 300px }
+</style>

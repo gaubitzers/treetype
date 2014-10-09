@@ -1,0 +1,31 @@
+<?php
+$title = 'view site';
+$this->headTitle($title);
+?>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<h2>Site information</h2>
+<?php echo 'Name: ' . $site[0]->getName(); ?><br>
+<?php echo 'Site type: ' . $site[0]->getSiteType(); ?><br>
+<?php echo 'Population Name: ' . $site[0]->getPopName(); ?><br>
+<?php echo 'Slope: ' . $site[0]->getSlope(); ?><br>
+<?php echo 'Exposure: ' . $site[0]->getExposure(); ?><br>
+<?php echo 'Topography: ' . $site[0]->getTopography(); ?><br>
+<?php echo 'Competition Index: ' . $site[0]->getCompetitionidx(); ?><br>
+<?php echo '% coverage plants >50cm: ' . $site[0]->getCovplantgt50(); ?><br>
+<?php echo '% coverage plants 20-50cm: ' . $site[0]->getCovplant20to50(); ?><br>
+<?php echo '% coverage plants <20cm: ' . $site[0]->getCovplantlt20(); ?><br>
+<?php echo 'Rocks: ' . $site[0]->getRocks(); ?><br>
+<?php echo 'Soil: ' . $site[0]->getSoil(); ?><br>
+<?php echo 'Additional Information: ' . $site[0]->getDescription(); ?><br>
+
+<h2>Geographical information</h2>
+<?php echo 'Country: ' . $site[0]->getGeo()->getCountry()->getName(); ?><br>
+<?php echo 'Region: ' . $site[0]->getGeo()->getRegion(); ?><br>
+<?php echo 'Latitude: ' . $site[0]->getGeo()->getLatitude(); ?><br>
+<?php echo 'Longitude: ' . $site[0]->getGeo()->getLongitude(); ?><br>
+<?php echo 'Altitude: ' . $site[0]->getGeo()->getAltitude(); ?><br>
+
+<h2>Owner information</h2>
+<?php echo 'User: ' . $site[0]->getUserid(); ?><br>

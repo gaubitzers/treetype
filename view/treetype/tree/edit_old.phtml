@@ -1,0 +1,91 @@
+<?php
+$form = $this->form;
+$tree = $form->get('tree');
+
+$title = 'Edit tree "' . $tree->get('name')->getValue() . '"';
+$this->headTitle($title);
+?>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+
+
+
+$form->setAttribute('action', 
+        $this->url('tree', 
+                array(
+                        'action' => 'add'
+                )));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+
+
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $tree->get('name')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $tree->get('species')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $tree->get('image-upload')
+            ->setAttribute('class', 'form-control')) . "</div>";
+// echo "<div class=\"form-group\">" . $this->formRow(
+//        $tree->get('population')
+//             ->setAttribute('class', 'form-control')) . "</div>";
+// ?>
+<!--<a
+	href="<?php
+echo $this->url('population', 
+        array(
+                'action' => 'add'
+        ));
+?>">Add new Population</a>-->
+
+
+
+<?php
+echo "<div class=\"form-group\">" . $this->formRow(
+        $tree->get('site')
+            ->setAttribute('class', 'form-control')) . "</div>";
+?>
+<a
+	href="<?php
+echo $this->url('site', array(
+        'action' => 'add'
+));
+?>">Add new Site</a>
+
+<?php
+// echo "<div class=\"form-group\">" . $this->formCollection($tree->get('records')) .
+//          "</div>";
+echo $this->formCollection($tree->get('records'))
+?>
+
+<?php
+// $record = $tree->get('record');
+// echo $this->formRow($record->get('date'));
+
+?>
+<script>
+    function add_record() {        
+        var currentCount = $('form > div > fieldset > fieldset').length;
+        var template = $('form > div > fieldset > span').data('template');       
+        template = template.replace(/__index__/g, currentCount);
+        $('form > div > fieldset').append(template);
+
+        return false;
+    }
+</script>
+<button onclick="return add_record()">Add a new record</button>
+
+<?php
+echo "<div class=\"form-group\">" . $this->formRow(
+        $form->get('submit')
+            ->setAttribute('class', 'btn btn-success')) . "</div>";
+
+echo $this->form()->closeTag();
+?>
+
+

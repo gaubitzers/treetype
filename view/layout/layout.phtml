@@ -1,0 +1,190 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle($this->translate('Treetype'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        
+        <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->appendStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                        ->appendStylesheet($this->basePath() . '/css/prettyPhoto.css')
+                        ->appendStylesheet($this->basePath() . '/css/flexslider.css')
+                        ->appendStylesheet($this->basePath() . '/css/slider.css')
+                        ->appendStylesheet($this->basePath() . '/css/owl.carousel.css')
+                        ->appendStylesheet($this->basePath() . '/css/font-awesome.min.css')                        
+                        ->appendStylesheet($this->basePath() . '/css/style.css')
+                        ->appendStylesheet($this->basePath() . '/css/orange.css')?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.js')
+            ->appendFile($this->basePath() . '/js/bootstrap.min.js')            
+            ->appendFile($this->basePath() . '/js/jquery.isotope.js')
+            ->appendFile($this->basePath() . '/js/jquery.prettyPhoto.js')
+            ->appendFile($this->basePath() . '/js/filter.js')
+            ->appendFile($this->basePath() . '/js/jquery.flexslider-min.js')
+            ->appendFile($this->basePath() . '/js/jquery.cslider.js')
+            ->appendFile($this->basePath() . '/js/modernizr.custom.28468.js')
+            ->appendFile($this->basePath() . '/js/owl.carousel.min.js')
+            ->appendFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->appendFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->appendFile($this->basePath() . '/js/custom.js')            
+            ->appendFile($this->basePath() . '/js/jquery.ui.map.full.min.js')
+        ; ?>
+        <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCmlbchNLVL_qPjGpNkEfszmnuuLkzrLIE&sensor=TRUE"> 
+        </script> 
+</head>
+<body>
+		<!-- Header starts -->
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-sm-5">
+					  <!-- Logo. Use class "color" to add color to the text. -->
+					  <div class="logo">
+                      <a href="<?php echo $this->url('treetype', array('action'=>'index'));?>"><img style="border:0;" alt="TreeType Logo" src="<?php echo $this->basePath('img/TreeType_logo_200_trans.png') ?>" width="100"></a>
+						<!--  <h1><a href="<?php echo $this->url('treetype', array('action'=>'index'));?>">Tree<span class="color bold">Type</span></a></h1> -->
+						<span class="meta">Every Tree is important!</span>
+					  </div>
+					</div>
+					<div class="col-md-6 col-sm-7">
+						<!-- Navigation -->
+						<div class="navbar bs-docs-nav" role="banner">
+							<div class="navbar-header">
+								<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
+						   
+							<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+								<ul class="nav navbar-nav navbar-right">
+								<li><a href="<?php echo $this->url('treetype', array('action'=>'index'));?>">Home</a></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tree <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li><a href="<?php echo $this->url('tree', array('action'=>'list'));?>">List Trees</a></li>									   
+										<li><a href="<?php echo $this->url('tree', array('action'=>'add'));?>">Add Tree</a></li>									   									   
+										<li><a href="<?php echo $this->url('tree', array('action'=>'import'));?>">Import Trees</a></li>									   
+									</ul>
+								  </li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li><a href="<?php echo $this->url('zfcuser', array('action'=>'login'));?>">Login</a></li>									   
+										<li><a href="<?php echo $this->url('zfcuser/register') ?>">Register</a></li>									   									   
+										<li><a href="<?php echo $this->url('zfcuser/changepassword') ?>">change Password</a></li>
+										<li><a href="<?php echo $this->url('zfcuser/changeemail') ?>">change e-mail</a></li>
+										<li><a href="<?php echo $this->url('zfcuser/logout') ?>">Logout</a></li>
+									</ul>
+								  </li>
+								<li><a href="<?php echo $this->url('treetype', array('action'=>'vote'));?>">Vote</a></li>  
+								<li><a href="<?php echo $this->url('treetype', array('action'=>'about'));?>">About</a></li>
+								<li><a href="<?php echo $this->url('treetype', array('action'=>'contact'));?>">Contact</a></li>								
+								</ul>
+							</nav>
+						</div>
+						<!--/ Navigation end -->
+						<!--/ Register Widget -->
+						<?php if(!$this->zfcUserIdentity()): ?>
+						  <div class="status">You are currently logged out! <a href="<?php echo $this->url('zfcuser', array('action'=>'login'));?>">Login</a></div>
+						<?php else: ?>
+						  <div class="status">You are currently logged in as: <a href="<?php echo $this->url('zfcuser');?>"><?php echo $this->zfcUserIdentity()->getDisplayname(); ?></a>						  
+						<?php endif?>
+						<!--/ Register Widget end-->
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- Seperator -->
+		<div class="sep"></div>
+		<!--/ Header ends -->
+		
+<!--         <div class="container"> -->
+            <?php echo $this->content; ?>
+            <hr>
+        <!-- </div> /container -->
+        
+        <!-- Footer starts -->
+		<footer>
+		  <div class="container">
+			<div class="row">
+			  <div class="col-md-12">
+
+					<div class="row">
+
+					  <div class="col-md-4">
+						<div class="widget">
+						  <h5>Contact</h5>
+						  <hr />
+						  <p>Praesent ultricies enim ac ipsum aliquet . Nullam justo nunc, dignissim at convallis posuere, sodales eu orci. </p>
+						  <hr />
+						  <i class="fa fa-home"></i> &nbsp; 123, Some Area. Los Angeles, CA, 54321.
+						  <hr />
+						  <i class="fa fa-phone"></i> &nbsp; +239-3823-3434
+						  <hr />
+						  <i class="fa fa-envelope-o"></i> &nbsp; <a href="mailto:#">someone@company.com</a>
+						  <hr />
+						</div>
+					  </div>
+
+					  <div class="col-md-4">
+						<div class="widget">
+						  <h5>About Us</h5>
+						  <hr />
+						  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras elementum dolor eget nisi fermentum quis hendrerit magna vestibulum. Curabitur pulvinar ornare vulputate scelerisque scelerisque ut consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras elementum dolor eget nisi fermentum quis hendrerit magna vestibulum..</p>
+						</div>
+					  </div>
+
+					  <div class="col-md-4">
+						<div class="widget">
+						  <h5>Links and partners</h5>
+						  <hr />
+						  <div class="two-col">
+							<div class="col-left">
+							  <ul>
+								<li><a href="http://www.evoltree.eu">Evoltree</a></li>
+								<li><a href="http://www.ait.ac.at/">Austrian Institute of Technology</a></li>
+								<li><a href="#">More Links???</a></li>
+								<li><a href="#">More Links???</a></li>
+								<li><a href="#">More Links???</a></li>
+							  </ul>
+							</div>
+							<div class="col-right">
+							  <ul>
+							    <li><a href="#">More Links???</a></li>
+								<li><a href="#">More Links???</a></li>
+								<li><a href="#">More Links???</a></li>								
+							  </ul>
+							</div>
+							<div class="clearfix"></div>
+						  </div>
+						</div>
+					  </div>
+					  
+					</div>
+
+					<hr />
+					<!-- Copyright info -->
+					<p class="copy">Copyright &copy; 2014 |  <a href="<?php echo $this->url('treetype', array('action'=>'index'));?>">Home</a> | <a href="http://www.evoltree.eu">Evoltree</a> | <a href="<?php echo $this->url('treetype', array('action'=>'contact'));?>">Contact</a> </p>
+			  </div>
+			</div>
+		  <div class="clearfix"></div>
+		  </div>
+		</footer> 	
+
+		<!-- Footer ends -->
+
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>
+

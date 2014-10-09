@@ -1,0 +1,159 @@
+<!-- Owl Carousel Starts -->
+
+<div class="container">
+
+	<div class="rp">
+		<!-- Recent News Starts -->
+		<h4 class="title">Recently added Trees</h4>
+		<div class="recent-news block">
+			<!-- Recent Item -->
+			<div class="recent-item">
+				<div class="custom-nav">
+					<a class="prev"><i class="fa fa-chevron-left br-lblue"></i></a> <a
+						class="next"><i class="fa fa-chevron-right br-lblue"></i></a>
+				</div>
+				<div id="owl-recent" class="owl-carousel">
+				   <?php 
+				   foreach ($this->carousel as $citem) {
+				       if ($citem->getImage() != '' && $citem->getImage() != null) {
+				           $imagefile = $citem->getImage();				           
+				       } else {
+				           $imagefile  ='no_image.png';
+				       }
+				        
+                        echo '<div class="item">';
+                        echo '<a href="' . $this->url('tree', array('action' => 'view', 'id' => $citem->getId())) .'">';
+                        echo '<img src="' . $this->basePath('img/trees/' . $imagefile) .'"';
+                        echo 'alt="'.$citem->getImage().'" class="img-responsive" /></a>';                        
+                        echo '<h4>';
+                        echo '<a href="#">' . $citem->getName() . '</a>';
+                        echo '</h4>';
+                        echo '<div class="clearfix"></div>';
+                        echo '<p>Species:. '. $citem->getSpecies()->getSpecies() .
+                            '<br>Observator: ' . $citem->getUser()->getDisplayname() .
+                            '<br>Country: ' . $citem->getSitedetail()->getGeo()->getCountry()->getName();                             
+                        echo '</div>';
+				   }
+				   
+				   ?>				
+				</div>
+			</div>
+		</div>
+
+		<!-- Recent News Ends -->
+	</div>
+
+</div>
+<!-- Owl Carousel Ends -->
+<div class="container">
+<div class="cta">
+	<div class="row">
+	<!-- Google maps -->		
+		  <div class="col-md-6">
+		  <div class="ctas">
+		      <h3 class="title"><i class="fa fa-bullseye"></i> Statistics</h3>
+		      <div class="col-md-12" id="map_canvas"></div>
+		      <div class="col-md-6 aserv-details">Total tree count: <span class="color"><?php echo $this->treecount[1]; ?></span></div>
+		      <div class="col-md-6 aserv-details">Measurements: <span class="color"><?php echo $this->measurements['sum_of_measurements']; ?></span></div>
+		  </div>
+		  </div>
+	<!-- Google maps end-->	  
+		<div class="col-md-6">
+		<div class="ctas">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="feat-inner">
+						<!-- Title -->
+						<h4>Trees</h4>
+						<!-- Para -->
+						<p>Browse Trees which are already recorded</p>
+						<!-- Button -->
+						<div class="button">
+                        <a href="<?php echo $this->url('tree', array('action' => 'list')); ?>">Check It Out</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="feat-inner">
+						<!-- Title -->
+						<h4>Vote</h4>
+						<!-- Para -->
+						<p>Vote for new Species!</p>
+						<!-- Button -->
+						<div class="button">
+							<a href="<?php echo $this->url('treetype', array('action' => 'vote')); ?>">Check It Out</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="feat-inner">
+						<!-- Title -->
+						<h4>Register</h4>
+						<!-- Para -->
+						<p>Register here to add your own trees!</p>
+						<!-- Button -->
+						<div class="button">
+							<a href="<?php echo $this->url('zfcuser/register', array('action' => 'register')); ?>">Check It Out</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="feat-inner">
+						<!-- Title -->
+						<h4>About</h4>
+						<!-- Para -->
+						<p>What is the project about?</p>
+						<!-- Button -->
+						<div class="button">
+							<a href="<?php echo $this->url('treetype', array('action' => 'about')); ?>">Check It Out</a>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+    </div>
+	</div>
+</div>
+<hr>
+
+<!-- Thumbnail -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<h4>TreeType - What is this?</h4>
+			<p>The phenotype is the complete set of observable traits of an
+				organism; a product of the genotype interacting with the
+				environment. As technology is rapidly delivering ever-better
+				understanding of the genotype, more knowledge of the phenotype is
+				imperative. Treetype aims to fill that gap for trees in wild
+				populations, collecting data on individual trees and their
+				environments. Treetype is an open project and welcomes contributions
+				from anyone willing to dedicate a little time to recording data -
+				from single trees or whole forests as your resources allow. If there
+				is a species for which you want to see a data collection, our voting
+				tool allows nomination of new species for the database - once enough
+				recorders show an interest in recording for a nominated species, we
+				will organise the start of a new collection.</p>
+			<p>
+				<strong>Every tree is important!</strong>
+			</p>
+		</div>
+		<div class="col-md-6">
+			<div class="bthumb">
+				<a href="#"><img
+					src="<?php echo $this->basePath('img/photos/PICT1210.JPG')?>"
+					alt="" class="img-responsive" /></a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<style>
+    #map_canvas { height: 300px }
+</style>
+<?php echo $this->map_html; ?>
+<!-- Clients ends -->

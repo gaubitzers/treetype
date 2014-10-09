@@ -1,0 +1,65 @@
+
+<?php
+$title = 'Population List';
+$this->headTitle($title);
+?>
+
+<h1><?php echo $title?></h1>
+
+<!--<p>
+	<a href="<?php echo $this->url('population', array('action'=>'add'));?>">Add
+		new population</a>
+</p>-->
+
+<?php if (count($this->paginator)): ?>
+
+<h2>Populations available: <?php echo $this->paginator->getTotalItemCount()?></h2>
+<table class="table">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Description</th>
+		<th>&nbsp;</th>
+	</tr>
+
+<?php foreach ($this->paginator as $population): ?>
+ <tr>
+		<td><a
+			href="<?php
+        echo $this->url('population', 
+                array(
+                        'action' => 'view',
+                        'id' => $population->getid()
+                ));
+        ?>"><?php echo $this->escapeHtml($population->getname());?></a></td>
+
+		<td><?php if ($population->getType()) { echo $this->escapeHtml($population->getType()->getValue());} else {echo "no type";}?></td>
+		<td><?php if ($population->getDescription()) {echo $this->escapeHtml($population->getDescription()); } else {echo "no description";}?></td>
+		<td><a
+			href="<?php
+        
+        echo $this->url('population', 
+                array(
+                        'action' => 'edit',
+                        'id' => $population->getId()
+                ));
+        ?>">Edit</a>
+		<a
+			href="<?php
+        
+        echo $this->url('population', 
+                array(
+                        'action' => 'delete',
+                        'id' => $population->getId()
+                ));
+        ?>">Delete</a>
+		</td>
+	</tr>
+<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+<?php
+
+echo $this->paginationControl($this->paginator, 'Sliding', 
+        'partial/paginator.phtml');
+?>

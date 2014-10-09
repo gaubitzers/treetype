@@ -1,0 +1,21 @@
+<?php
+$title = 'view population';
+$this->headTitle($title);
+?>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+<table class="table table-bordered table-condensed">
+    <tr>
+        <td> <strong>Name:</strong> </td>
+        <td> <?php echo $population[0]->getName(); ?> </td>
+    </tr>
+    <tr>
+        <td> <strong>Type:</strong> </td>
+        <td> <?php echo $population[0]->getType()->getValue(); ?> </td>
+    </tr>
+        <td> <strong>Description:</strong> </td>
+        <td> <?php echo $population[0]->getDescription(); ?> </td>
+    </tr>
+</table>

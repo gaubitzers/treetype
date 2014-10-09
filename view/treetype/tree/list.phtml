@@ -1,0 +1,95 @@
+<?php
+$title = 'List all trees';
+$this->headTitle($title);
+?>
+
+<!-- Page heading starts -->
+
+<div class="page-head">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2><?php echo $title?></h2>
+        <h4>This is a full list of all trees which have been recorded.</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+
+<!--<p>
+	<a href="<?php echo $this->url('tree', array('action'=>'add'));?>">Add
+		new tree</a>
+</p>-->
+<?php if (count($this->paginator)): ?>
+
+<h2>Trees available: <?php echo $this->paginator->getTotalItemCount()?></h2>
+<table class="table">
+	<tr>
+		<th>Name</th>
+		<th>Species</th>
+		<th>Observer</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+
+<?php foreach ($this->paginator as $tree): ?>
+ <tr>
+		<td><a
+			href="<?php
+        echo $this->url('tree', 
+                array(
+                        'action' => 'view',
+                        'id' => $tree->getid()
+                ));
+        ?>"><?php echo $this->escapeHtml($tree->getname());?></a></td>
+		<td><?php echo $this->escapeHtml($tree->getSpecies()->getSpecies());?></a></td>
+		<td><?php echo $this->escapeHtml($tree->getUser()->getDisplayname());?></a></td>
+        
+		<td>
+		<!-- Test if the User is connected -->
+<?php if($this->zfcUserIdentity()) { ?>
+    <?php if($this->zfcUserIdentity()->getDisplayname() == $tree->getUser()->getDisplayname()) { ?>
+		<a
+			href="<?php
+        echo $this->url('tree', 
+                array(
+                        'action' => 'edit',
+                        'id' => $tree->getId()
+                ));
+        ?>"><i class="fa fa-pencil-square-o"></i></a>
+    <?php }
+    else  { echo "no access";}?>
+<?php }
+else  { echo "no access";}?>      
+        </td>
+        <td>
+<?php if($this->zfcUserIdentity()) { ?>
+    <?php if($this->zfcUserIdentity()->getDisplayname() == $tree->getUser()->getDisplayname()) { ?>
+		<a
+			href="<?php
+        
+        echo $this->url('tree', 
+                array(
+                        'action' => 'delete',
+                        'id' => $tree->getId()
+                ));
+        ?>"><i class="fa fa-times"></i></a>
+<?php }
+    else  { echo "no access";}?>
+<?php }
+else  { echo "no access";}?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+<?php
+
+ echo $this->paginationControl($this->paginator, 'Sliding', 
+         'treetype/partial/paginator.phtml');
+
+?>
+</div>

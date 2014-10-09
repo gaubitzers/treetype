@@ -1,0 +1,101 @@
+<?php
+$title = 'Add new Site';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', 
+        $this->url('site', 
+                array(
+                        'action' => 'add'
+                )));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+$site = $form->get('site');
+$geo = $site->get('geo');
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('id')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('name')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('sitetype')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('popname')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('slope')
+            ->setAttribute('class', 'form-control')) . "</div>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('exposure')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('topography')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('competitionidx')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('covplantgt50')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('covplant20to50')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('covplantlt20')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('rocks')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('soil')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $site->get('description')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<h2>Geoinformation</h2>";
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('latitude')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('longitude')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('altitude')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('country')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $geo->get('region')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $form->get('submit')
+            ->setAttribute('class', 'btn btn-success')) . "</div>";
+
+echo $this->form()->closeTag();
+?>

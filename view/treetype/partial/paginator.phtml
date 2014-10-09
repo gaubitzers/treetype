@@ -1,0 +1,78 @@
+
+<?php $url = $this->url($this->route)?>
+<?php 
+$parameterGet = $this->Requesthelper();
+if ($parameterGet != ""){
+  $parameterGet = "?".$parameterGet;
+} ?>
+
+<?php if ($this->pageCount): ?>
+    <div> 
+        <ul class="pagination pagination-centered">
+         <!-- First page link -->
+            <?php if (isset($this->first)): ?>
+                <li>
+                    <a class="first" href="<?= $url.'list/'.$this->first.$parameterGet; ?>">&lt;&lt; first&nbsp;&nbsp;</a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="#">
+                        <<
+                    </a>
+                </li>
+            <?php endif; ?>
+            <!-- Previous page link -->
+            <?php if (isset($this->previous)): ?>
+                <li>
+                    <a class="Previous" href="<?= $url.'list/'.$this->previous.$parameterGet; ?>">&lt; prev&nbsp;&nbsp;</a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="#">
+                        <<
+                    </a>
+                </li>
+            <?php endif; ?>
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                    <li>
+                        <a class="nopage" href="<?= $url.'list/'.$page.$parameterGet; ?>">
+                            <?= $page; ?></a>
+                    </li>
+                <?php else: ?>
+                    <li class="active">
+                        <a href="#"><?php echo $page; ?></a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+            <!-- Next page link -->
+            <?php if (isset($this->next)): ?>
+                <li>
+
+                    <a class="next" href="<?= $url.'list/'.$this->next.$parameterGet; ?>">&nbsp;next &gt;</a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="#">
+                        >>
+                    </a>
+                </li>
+            <?php endif; ?>
+            
+            <!-- last page link -->
+            <?php if (isset($this->last)): ?>
+                <li>                    
+                    <a class="last" href="<?= $url.'list/'.$this->pageCount.$parameterGet; ?>">&nbsp;last &gt;&gt;</a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="#">
+                        >>
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+<?php endif; ?>

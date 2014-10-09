@@ -1,0 +1,36 @@
+<?php
+$title = 'Add new population';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', 
+        $this->url('population', 
+                array(
+                        'action' => 'add'
+                )));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+$population = $form->get('population');
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $population->get('name')
+            ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $population->get('type')
+        ->setAttribute('class', 'form-control')) . "</div>";
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $population->get('description')
+            ->setAttribute('class', 'form-control'));
+
+echo "<div class=\"form-group\">" . $this->formRow(
+        $form->get('submit')
+        ->setAttribute('class', 'btn btn-success')) . "</div>";
+
+echo $this->form()->closeTag();
+?>

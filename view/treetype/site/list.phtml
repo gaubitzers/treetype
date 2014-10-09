@@ -1,0 +1,63 @@
+
+<?php
+$title = 'Site List';
+$this->headTitle($title);
+?>
+
+<h1><?php echo $title?></h1>
+<!--<p>
+	<a href="<?php echo $this->url('site', array('action'=>'add'));?>">Add
+		new site</a>
+</p>-->
+<?php if (count($this->paginator)): ?>
+
+<h2>Sites available: <?php echo $this->paginator->getTotalItemCount()?></h2>
+<table class="table">
+	<tr>
+		<th>Name</th>
+		<th>Country</th>
+		<th>Region</th>
+		<th>Owner</th>
+		<th>&nbsp;</th>
+	</tr>
+
+<?php foreach ($this->paginator as $site): ?>
+ <tr>
+		<td><a
+			href="<?php
+        echo $this->url('site', 
+                array(
+                        'action' => 'view',
+                        'id' => $site->getid()
+                ));
+        ?>"><?php echo $this->escapeHtml($site->getname());?></a></td>
+
+		<td><?php echo $this->escapeHtml($site->getGeo()->getCountry()->getName());?></td>
+		<td><?php echo $this->escapeHtml($site->getGeo()->getRegion());?></td>
+		<td><?php echo "no owner";?></td>
+		<td><a
+			href="<?php
+        
+        echo $this->url('site', 
+                array(
+                        'action' => 'edit',
+                        'id' => $site->getId()
+                ));
+        ?>">Edit</a> <a
+			href="<?php
+        
+        echo $this->url('site', 
+                array(
+                        'action' => 'delete',
+                        'id' => $site->getId()
+                ));
+        ?>">Delete</a></td>
+	</tr>
+<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+<?php
+
+echo $this->paginationControl($this->paginator, 'Sliding', 
+        'partial/paginator.phtml');
+?>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings
+
+nameText="TreeType"
+taglineText="Open Source Project"
+mainText="NEW SITE COMING SOON"
+
+useOwnLogo="false"
+logoFilePath="logo.png"
+
+nameColor="0x599109"
+taglineColor="0x599109"
+mainColor="0x000000"
+linkColor="0xffffff"
+linkRollOverColor="0xff4400"
+linkRollOverBlurAmount="5"
+
+backgroundColor="0xFFFFFF"
+backgroundGradientColor1="0x8EB159"
+backgroundGradientColor2="0xFFFFFF"
+backgroundGradientAlphaPercent="100"
+
+borderColor="0xffffff"
+borderThickness="10"
+
+ownLogoXOffset="3"
+taglineXOffset="2"
+taglineYOffset="-9"
+mainXOffset="-2"
+linkXOffset="2"
+
+introBlurAmount="20"
+siteRotation="0"
+
+>
+
+<link text="visit: EVOLTREE" url="http://www.evoltree.eu/" target="_blank" />
+<link text="visit: Austrian Institute of Technology" url="http://www.ait.ac.at/" target="_blank" />
+<link text="Contact: stephan.gaubitzer@ait.ac.at" url="mailto:stephan.gaubitzer@ait.ac.at" />
+	
+</settings>

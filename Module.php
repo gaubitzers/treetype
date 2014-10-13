@@ -45,4 +45,13 @@ class Module
                 ),
         );
     }
+     public function getViewHelperConfig()
+    {
+        return array(
+            'invokables' => array(
+                'fieldCollection' => 'treetype\View\Helper\FieldCollection',
+                'fieldRow' => 'treetype\View\Helper\FieldRow'
+            )
+        );
+    }   
 }

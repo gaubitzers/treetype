@@ -51,6 +51,9 @@ class SiteFieldset extends Fieldset implements InputFilterProviderInterface
                                                 )
                                         )
                                 )
+                            ),
+                         'attributes' => array(
+                                'title' => 'Type of site'
                             )
                         ));
                     
@@ -73,7 +76,8 @@ class SiteFieldset extends Fieldset implements InputFilterProviderInterface
                         'attributes' => array(
                                 'min' => '0',
                                 'max' => '100',
-                                'step' => '1'
+                                'step' => '1',
+                                'title' => 'Slope in %'
                         )
                 ));
         $this->add(
@@ -95,7 +99,11 @@ class SiteFieldset extends Fieldset implements InputFilterProviderInterface
                                                 )
                                         )
                                 )
-                        )
+                            ),
+                         'attributes' => array(
+                                'title' => 'Plase choose the exposure of the area'
+                            )
+
                 ));
         
         $this->add(

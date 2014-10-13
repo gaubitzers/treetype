@@ -145,6 +145,10 @@ echo "<div id=\"treedetails\">
         return false;
     }
     
+    $(function() {
+       var tooltips = $( "[title]" ).tooltip();
+    });
+    
 </script>
 <div class="form-group">
 <button class="btn btn-default" onclick="return add_treedetail()">Add a new Treedetail</button>

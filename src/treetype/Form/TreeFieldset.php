@@ -37,7 +37,11 @@ class TreeFieldset extends Fieldset
                         'type' => 'File',
                         'options' => array(
                                 'label' => 'Image upload'
+                        ),
+                        'attributes' => array(
+                                'title' => 'Image from your Tree available? Please upload it!'
                         )
+
                 ));
         
         $this->add(
@@ -45,10 +49,12 @@ class TreeFieldset extends Fieldset
                         'name' => 'name',
                         'type' => 'Text',
                         'options' => array(
-                                'label' => 'Tree name'
+                                'label' => 'Tree name *'
                         ),
                         'attributes' => array(
-                                'class' => 'form-control'
+                                'class' => 'form-control',
+                                'data-placement' => 'right',
+                                'title' => 'Choose a name for your tree'
                         )
                 ));
         
@@ -57,12 +63,16 @@ class TreeFieldset extends Fieldset
                         'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                         'name' => 'species',
                         'options' => array(
-                                'label' => 'Species',
+                                'label' => 'Species *',
                                 'object_manager' => $objectManager,
                                 'target_class' => 'treetype\Entity\Species',
                                 'property' => 'species',
                                 'empty_option' => '--- please choose ---'
-                        )
+                        ),
+                        'attributes' => array(
+                                'data-placement' => 'right',
+                                'title' => 'Select the tree species'
+                            )
                 ));
         
         $treedetailfieldset = new TreedetailFieldset($objectManager);

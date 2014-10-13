@@ -27,7 +27,8 @@ class GeoFieldset extends Fieldset implements InputFilterProviderInterface
                         'attributes' => array(
                                 'min' => -90,
                                 'max' => 90,
-                                'step' => 0.000001
+                                'step' => 0.000001,
+                                'title' => 'Enter Latitude in the following format: 47.4184431'
                         )
                 ));
         
@@ -41,7 +42,8 @@ class GeoFieldset extends Fieldset implements InputFilterProviderInterface
                         'attributes' => array(
                                 'min' => -180,
                                 'max' => 180,
-                                'step' => 0.000001
+                                'step' => 0.000001,
+                                'title' => 'Enter Longitude in the following format: 7.698762'
                         )
                 ));
         
@@ -51,6 +53,9 @@ class GeoFieldset extends Fieldset implements InputFilterProviderInterface
                         'type' => 'Number',
                         'options' => array(
                                 'label' => 'Altitude'
+                        ),
+                        'attributes' => array(
+                            'title' => 'Altitude in meter [m]'
                         )
                 ));
         
@@ -65,7 +70,10 @@ class GeoFieldset extends Fieldset implements InputFilterProviderInterface
                                 'target_class' => 'treetype\Entity\Country',
                                 'property' => 'name'
                         // 'is_method' => false,
-                                                )
+                            ),
+                        'attributes' => array(
+                                'title' => 'Select the country of the tree location'
+                            )
                 ));
         
         $this->add(
@@ -74,7 +82,11 @@ class GeoFieldset extends Fieldset implements InputFilterProviderInterface
                         'type' => 'Text',
                         'options' => array(
                                 'label' => 'Region'
-                        )
+                            ),
+                         'attributes' => array(
+                                'title' => 'Do you know the region name? Please specify!'
+                            )
+
                 ));
     }
 
